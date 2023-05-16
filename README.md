@@ -3,7 +3,7 @@
 Introduction
 
 Kubernetes is an open source platform for managing container technologies such as Docker.
-images/flower.svg
+
 Kubernetes, also known as K8s, is an open-source system for automating deployment, scaling, and management of containerized applications.
 Docker lets you create application containers from a pre-configured image. Kubernetes provides the next step, allowing you to balance loads between the containers and run multiple containers across multiple systems.
 
