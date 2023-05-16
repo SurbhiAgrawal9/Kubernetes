@@ -122,7 +122,7 @@ prefer from  github Link ==>   https://github.com/viveksinghggits/cluster-setup
  Deploy Pod Network to Cluster
 kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
 
-After join command in worker node:-
+Run this command on Master After join command in worker node 
 kubectl get nodes
 
 
