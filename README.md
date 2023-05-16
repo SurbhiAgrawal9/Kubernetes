@@ -31,7 +31,7 @@ Prerequisites:-
 Installation Procedure: -
 1)	Sudo su
 2)	apt-get update
-3)	apt-get upgrade
+3)	apt-get upgrade     (its important without upgrade kubernetes will not install & get some error)
 4)	sudo apt install docker.io -y
 5)	sudo systemctl enable docker
 6)	sudo systemctl status docker
