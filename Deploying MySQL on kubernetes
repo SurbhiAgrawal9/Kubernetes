@@ -1,0 +1,128 @@
+How to Deploying MySQL on Kubernetes
+
+prefer from this site
+  https://dev.to/musolemasu/deploy-a-mysql-database-server-in-kubernetes-static-dpc
+
+1.	Build a Persistent Volume (PV)
+First, create a working directory and navigate in:
+
+mkdir mysql-kube
+cd mysql-kube/
+
+Create a yaml file named mysql-pv.yaml, put in the following:
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-pv
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"
+
+[change size in storage  on file ex:-   storage:1Gi]
+
+2. Build a Persistent Volume Claim (PVC)
+create a file named mysql-pvc.yaml, put the following:
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pv-claim
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+
+3. MySQL pod's deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - image: mysql:8.0
+          name: mysql
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: root
+          ports:
+            - containerPort: 3306
+              name: mysql
+          volumeMounts:
+            - name: mysql-persistent-storage
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: mysql-persistent-storage
+          persistentVolumeClaim:
+            claimName: mysql-pv-claim
+
+[here we change the password that is root]
+create a yaml file named mysql-service.yaml and put the code below:
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+spec:
+  ports:
+    - port: 3306
+  selector:
+    app: mysql
+  clusterIP: None
+
+
+•	Step 1: Create the Persistent Volume
+
+kubectl apply -f mysql-pv.yaml
+
+•	Step 2: Create the Persistent Volume Claim
+
+kubectl apply -f mysql-pvc.yaml
+
+•	Step 3: Create the Deployment
+
+kubectl apply -f mysql-deployment.yaml
+
+•	Step 4: Create the Service
+
+kubectl apply -f mysql-deployment.yaml
+
+•	Deployment
+
+kubectl get deployments
+
+•	Pod
+
+kubectl get pods
+
+•	Service
+
+kubectl get services
+
+
+ kubectl run -it --rm --image=mysql:8.0 --restart=Never mysql-client -- mysql -h mysql -ppassword
+
+
+
+now enter into the mysql
+show databases;
