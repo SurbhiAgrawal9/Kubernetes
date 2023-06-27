@@ -1,0 +1,69 @@
+how to remove and uninstall kubernetes
+
+kubeadm reset
+kubectl delete node --all 
+sudo apt-get purge kubeadm kubectl kubelet kubernetes-cni kube*   
+sudo apt-get autoremove  
+sudo rm -rf ~/.kube
+
+
+#check path of kubeadm kubelet kubectl from which cmd
+ex:- which kubeadm
+    which kubelet
+    which kubectl
+ex:- rm -rf /usr/bin/kubeadm
+ese hi 3no ko delete krna h 
+
+and last check status 
+ex:- sudo systemctl status kubeadm kubelet kubectl
+
+ #revert hostname kubernetes
+ hostnamectl set-hostname "" [option...]
+ex:- hostnamectl set-hostname "ubuntu"
+note:- empty string denen par by default localhost name leleta h 
+
+
+# -f option is to surpress the prompt and do a force reset, can be useful if you want to automate the process
+
+sudo kubeadm reset -f
+
+sudo rm -rf /etc/cni /etc/kubernetes /var/lib/dockershim /var/lib/etcd /var/lib/kubelet /var/run/kubernetes ~/.kube/*
+
+
+sudo iptables -F && sudo iptables -X
+sudo iptables -t nat -F && sudo iptables -t nat -X
+sudo iptables -t raw -F && sudo iptables -t raw -X
+sudo iptables -t mangle -F && sudo iptables -t mangle -X
+
+
+
+            #How to completely uninstall docker
+
+dpkg -l | grep -i docker
+sudo apt-get purge -y docker.io
+sudo apt-get autoremove -y --purge docker.io
+
+sudo rm -rf /var/lib/docker /etc/docker
+sudo rm /etc/apparmor.d/docker
+sudo groupdel docker
+sudo rm -rf /var/run/docker.sock
+
+#check path of docker from which cmd
+  which docker
+ex:- rm -rf /usr/bin/docker
+
+and last check status 
+ex:- sudo systemctl status docker
+
+
+exaplanation of above cmd 
+
+// check docker is installed or not
+dpkg -l | grep -i docker
+
+
+
+
+// remove dependency packages related to docker
+sudo apt autoremove
+sudo apt autoclean
