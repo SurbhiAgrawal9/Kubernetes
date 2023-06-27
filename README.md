@@ -67,6 +67,7 @@ br_netfilter
 12)	sudo nano /etc/sysctl.d/kubernetes.conf
 
    Add the following lines:
+   
       net.bridge.bridge-nf-call-ip6tables = 1
      net.bridge.bridge-nf-call-iptables = 1
      net.ipv4.ip_forward = 1
@@ -76,7 +77,8 @@ br_netfilter
 14)	sudo hostnamectl set-hostname master-node
 ex:-   sudo hostnamectl set-hostname Master-Ubuntu
 15)	nano /etc/hosts
-   Add the following lines:   
+   Add the following lines:
+   
  1.1.1.104       Master-Ubuntu (server node Ip address & name)
 1.1.1.107       worker01(worker node Ip address & name)
          
