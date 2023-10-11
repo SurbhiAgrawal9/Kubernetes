@@ -1,4 +1,4 @@
-```js
+```yml
 Completely delete pod
 kubectl delete --all pods
  #kubectl delete --all deployments 
@@ -9,7 +9,7 @@ Completely delete pod, pv, pvc
 
 Delete Your MySQL Instance
 
-```js
+```yml
 kubectl get pvc
 
 kubectl delete pvc  mysql-pv-claim [pvc-name]
