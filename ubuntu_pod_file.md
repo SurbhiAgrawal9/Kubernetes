@@ -12,6 +12,8 @@ How to Deploying on Kubernetes
 5)	 cd ubuntu_pod
 # Create a yaml file named ubuntu_pod.yaml, put in the following:
 6)	nano ubuntu_pod.yaml
+
+   ```js
 apiVersion: v1
 kind: Pod
 metadata:
@@ -39,7 +41,7 @@ dnsPolicy: Default
 volumes:
 - name: workdir
 emptyDir: {}
-
+```
 #  save the file and exit
 # Create the Ubuntu pod
 
